@@ -8,10 +8,9 @@
       <select id="vehiculename" class="form-control" name="vehiculename" ngModel>
         <option *ngFor="let Vehicule of vehicules" [value]="Vehicule.name" >{{Vehicule.name}}</option>
       </select>
-      <label for="datedebut">
-        Date début
-      </label>
-      <input type="text" id="datedebut" class="form-control" name="datedebut" ngModel>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
       <label for="datefin">
         Date fin
       </label>

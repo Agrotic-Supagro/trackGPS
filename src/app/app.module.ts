@@ -12,6 +12,8 @@ import {AuthService} from './services/auth.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import {AuthGuard} from './services/auth-guard.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 
 const appRoutes: Routes = [
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule
   ],
   providers: [
     VehiculeService,

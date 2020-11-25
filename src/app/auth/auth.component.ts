@@ -56,6 +56,6 @@ export class AuthComponent implements OnInit {
     console.log(form.value);
     this.adressemail = form.value.adressemail;
     this.motdepasse = form.value.motdepasse;
-    this.onSignIn1();
+    this.onSignIn();
   }
 }

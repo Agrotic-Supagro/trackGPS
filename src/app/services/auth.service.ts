@@ -5,8 +5,11 @@ export class AuthService {
   isAuth = false;
 
   // tslint:disable-next-line:typedef
-  reponse: string;
-  private http: HttpClient;
+  reponse: any;
+  // tslint:disable-next-line:variable-name
+  _httpClient: HttpClient;
+  url = 'https://www.googleapis.com/books/v1/volumes?q=extreme%20programming';
+
 
   signIn(adressemail: string, motdepasse: string) {
         const requestOptions = {
@@ -21,7 +24,9 @@ export class AuthService {
 
   // tslint:disable-next-line:typedef
   signIn1(adressemail: string, motdepasse: string) {
-    return this.http.get('https://app.samsys.io/api/v1/auth?email=' + adressemail + '&password=' + motdepasse);
+    this.url = 'https://app.samsys.io/api/v1/auth?email=' + adressemail + '&password=' + motdepasse;
+    this.reponse = this._httpClient.get(this.url);
+    return this.reponse;
   }
   // tslint:disable-next-line:typedef
   signOut() {
