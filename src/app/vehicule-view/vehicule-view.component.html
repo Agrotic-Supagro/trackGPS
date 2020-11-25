@@ -1,0 +1,48 @@
+
+<div class="col-sm-6 col-sm-offset-1">
+  <form (ngSubmit)="onSubmitRecherche(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="vehiculename">
+        Nom du vehicule
+      </label>
+      <select id="vehiculename" class="form-control" name="vehiculename" ngModel>
+        <option *ngFor="let Vehicule of vehicules" [value]="Vehicule.name" >{{Vehicule.name}}</option>
+      </select>
+      <label for="datedebut">
+        Date début
+      </label>
+      <input type="text" id="datedebut" class="form-control" name="datedebut" ngModel>
+      <label for="datefin">
+        Date fin
+      </label>
+      <input type="text" id="datefin" class="form-control" name="datefin" ngModel>
+      <button type="submit" class="btn-primary" [disabled]="f.invalid" >Rechercher</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<div class="col-sm-6 col-sm-offset-9">
+<h2>Mes vehicules</h2>
+<ul class="list-group" >
+  <app-vehicule *ngFor="let Vehicule of vehicules; let i = index"
+                [IndexofVehicule]="i"
+                [Vehiculename]="Vehicule.name"
+                [VehiculeID]="Vehicule.id"
+  ></app-vehicule>
+
+  <button class = "btn btn-success"
+          [disabled]="!isRempli"
+          (click)="onAllumer()"
+          [ngClass]="{'btn-success': isRempli, 'btn-danger':!isRempli}"
+
+
+  >Valider1</button>
+  <button class = "btn btn-danger"
+          (click)="onEteindre()"
+  >Valider2</button>
+</ul>
+</div>
+

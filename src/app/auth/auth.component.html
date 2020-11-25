@@ -1,0 +1,24 @@
+<br><br>
+<div class="col-xs-4 col-xs-offset-2" >
+  <h2>Authentification</h2>
+  <legend></legend>
+  <form (ngSubmit)="onSubmitAuth(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="adressemail">Adresse email :</label>
+      <input type="text" id="adressemail" class="form-control" name="adressemail" placeholder="....@supagro.fr" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="motdepasse">Mot de passe :</label>
+      <input type="text" id="motdepasse" class="form-control" name="motdepasse" placeholder="********" ngModel required>
+    </div>
+    <div class="col-xs-offset-4">
+      <button type="submit" class="btn-primary" [disabled]="f.invalid" *ngIf="!authStatus" >Se connecter</button>
+
+    </div>
+  </form>
+    <div class="col-xs-offset-4">
+      <button type="submit" class="btn-danger" *ngIf="authStatus" (click) = "onSignOut()">Se déconnecter</button>
+    </div>
+</div>
+
+<!-- (click) = "onSignOut()" -->

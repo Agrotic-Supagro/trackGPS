@@ -1,0 +1,30 @@
+<ol>
+  <li>
+    <p>
+      Using <em>data-provide="datepicker"</em> and <em>data-date-show-on-focus="false"</em> attributes means that the first time the datepicker-enabled input element receives focus, the calendar is displayed, which is incorrect. Thereafter, it is not
+      displayed when the input receives focus.
+    </p>
+    <input type="text" class="form-control" placeholder="Click here, then tab into datepicker input element" />
+    <br />
+    <div class="input-group date" data-provide="datepicker" data-date-show-on-focus="false">
+      <input type="text" class="form-control">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+      </div>
+    </div>
+  </li>
+  <li>
+    <br />
+    <p>
+      Using JS configuration ($.fn.datepicker.defaults.showOnFocus), the calendar is only displayed when the icon is clicked and not when the input receives focus, which is correct.
+    </p>
+    <input type="text" class="form-control" placeholder="Click here, then tab into datepicker input element" />
+    <br />
+    <div class="input-group date" id="datepicker">
+      <input type="text" class="form-control">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+      </div>
+    </div>
+  </li>
+</ol>
