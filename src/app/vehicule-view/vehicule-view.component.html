@@ -1,20 +1,25 @@
 
-<div class="col-sm-6 col-sm-offset-1">
+<div class="col-sm-7 col-sm-offset-1">
   <form (ngSubmit)="onSubmitRecherche(f)" #f="ngForm">
     <div class="form-group">
       <label for="vehiculename">
         Nom du vehicule
       </label>
-      <select id="vehiculename" class="form-control" name="vehiculename" ngModel>
+      <select id="vehiculename" class="form-control" name="vehiculename" ngModel required>
         <option *ngFor="let Vehicule of vehicules" [value]="Vehicule.name" >{{Vehicule.name}}</option>
       </select>
-      <input matInput [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <label for="datefin">
-        Date fin
+      <label for="datedebut">
+        Date début :
       </label>
-      <input type="text" id="datefin" class="form-control" name="datefin" ngModel>
+      <input matInput type="text" id="datedebut" name="datedebut" placeholder="{{dateajd}}" ngModel required [matDatepicker]="datedebut">
+      <mat-datepicker-toggle matSuffix [for]="datedebut"></mat-datepicker-toggle>
+      <mat-datepicker #datedebut></mat-datepicker>
+      <label for="datefin">
+        Date fin :
+      </label>
+      <input matInput type="text" id="datefin" name="datefin" placeholder="{{dateajd}}" ngModel required [matDatepicker]="datefin">
+      <mat-datepicker-toggle matSuffix [for]="datefin"></mat-datepicker-toggle>
+      <mat-datepicker #datefin></mat-datepicker>
       <button type="submit" class="btn-primary" [disabled]="f.invalid" >Rechercher</button>
     </div>
   </form>

@@ -52,4 +52,15 @@ export class VehiculeService {
   switchOnOne(index: number){
     this.vehicules[index].name = 'test';
   }
+
+  RechercheTravaux(datedebut: string, datefin: string, jwt: string) {
+    const requestOptions = {
+      method: 'POST',
+      redirect: 'follow'
+    };
+    // @ts-ignore
+    return fetch('https://app.samsys.io/api/v1/auth?email=' + adressemail + '&password=' + motdepasse, requestOptions)
+      .then(res => res.json())
+      .catch(error => console.log('error', error));
+  }
 }

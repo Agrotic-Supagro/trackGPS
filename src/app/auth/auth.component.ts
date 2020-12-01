@@ -14,6 +14,7 @@ export class AuthComponent implements OnInit {
   @Input() motdepasse: string;
   authStatus: boolean;
   result: string;
+  jwt: string;
   posts: any;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -26,9 +27,12 @@ export class AuthComponent implements OnInit {
     this.authService.signIn(this.adressemail, this.motdepasse).then(
       (result) =>
     {
-      console.log(result);
-      console.log('Connexion reussie !');
+      this.result = result;
+      // @ts-ignore
+      this.jwt = this.result.jwt;
+      console.log(this.jwt);
       if (result.status === 'ok') {
+        console.log('Connexion reussie !');
         this.authService.isAuth = true;
         this.authStatus = this.authService.isAuth;
         this.router.navigateByUrl('/vehicules');
