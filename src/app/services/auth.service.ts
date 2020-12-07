@@ -8,6 +8,7 @@ export class AuthService {
   reponse: any;
   // tslint:disable-next-line:variable-name
   url = 'https://www.googleapis.com/books/v1/volumes?q=extreme%20programming';
+  jwt: string;
 
   signIn(adressemail: string, motdepasse: string) {
         const requestOptions = {
@@ -29,6 +30,11 @@ export class AuthService {
   // tslint:disable-next-line:typedef
   signOut() {
             this.isAuth = false;
+  }
+
+  // tslint:disable-next-line:typedef
+  SaveJWT(Jwt: string){
+    this.jwt = Jwt;
   }
 /*.then( res => {
   if (res.status === 'ok'){

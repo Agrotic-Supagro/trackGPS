@@ -1,13 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
+
+@Injectable()
 export class AuthComponent implements OnInit {
 
   @Input() adressemail: string;
@@ -16,7 +19,6 @@ export class AuthComponent implements OnInit {
   result: string;
   jwt: string;
   posts: any;
-
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class AuthComponent implements OnInit {
         this.authService.isAuth = true;
         this.authStatus = this.authService.isAuth;
         this.router.navigateByUrl('/vehicules');
+
       }
     }
     )
@@ -62,4 +65,5 @@ export class AuthComponent implements OnInit {
     this.motdepasse = form.value.motdepasse;
     this.onSignIn();
   }
+  // tslint:disable-next-line:typedef
 }

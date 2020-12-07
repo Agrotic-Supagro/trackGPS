@@ -54,13 +54,20 @@ export class VehiculeService {
   }
 
   RechercheTravaux(datedebut: string, datefin: string, jwt: string) {
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'JWT' + jwt);
     const requestOptions = {
-      method: 'POST',
+      method: 'GET',
+      headers: myHeaders,
       redirect: 'follow'
     };
+
     // @ts-ignore
-    return fetch('https://app.samsys.io/api/v1/auth?email=' + adressemail + '&password=' + motdepasse, requestOptions)
+    return fetch('https://app.samsys.io/api/v1/machines', requestOptions)
       .then(res => res.json())
+      .then(result => console.log(result))
       .catch(error => console.log('error', error));
+
+
   }
 }

@@ -46,7 +46,8 @@ const appRoutes: Routes = [
   providers: [
     VehiculeService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    AuthComponent
   ],
   bootstrap: [AppComponent]
 })

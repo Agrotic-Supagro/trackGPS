@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {VehiculeService} from '../services/vehicule.service';
-import {AuthComponent} from '../auth/auth.component';
 import {NgForm} from '@angular/forms';
 import {formatDate} from '@angular/common';
+import {Subscription} from 'rxjs';
+import {AuthComponent} from '../auth/auth.component';
+import {BepJsonWriter} from '@angular/cli/utilities/bep';
+import {AuthService} from '../services/auth.service';
 
 
 @Component({
@@ -22,7 +25,11 @@ export class VehiculeViewComponent implements OnInit {
   dateajd;
   format = 'dd/MM/yyyy';
   locale = 'en-FR';
-  constructor(private vehiculeservice: VehiculeService, private authcomponent: AuthComponent) {
+  private result: any;
+  authjwtSubscription: Subscription;
+  jwt: string;
+
+  constructor(private vehiculeservice: VehiculeService, ) {
     this.dateajd = new Date();
     // @ts-ignore
     this.dateajd = formatDate(this.dateajd, this.format, this.locale);
@@ -44,7 +51,8 @@ export class VehiculeViewComponent implements OnInit {
     this.vehiculeservice.switchOffAll();
   }
   onRechercheTravaux(){
-    this.vehiculeservice.RechercheTravaux(this.datedebut, this.datefin, this.authcomponent.jwt).then(
+    console.log('allo')
+    this.vehiculeservice.RechercheTravaux(this.datedebut, this.datefin, this.authservice.jwt).then(
       (result) =>
       {
         this.result = result;
@@ -63,9 +71,10 @@ export class VehiculeViewComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSubmitRecherche(form: NgForm){
     console.log(form.value);
-    console.log(this.authcomponent.jwt);
+    console.log(this.authservice.jwt);
     this.datedebut = form.value.datedebut;
     this.datefin = form.value.datefin;
     this.Vehiculewanted = form.value.vehiculename;
     this.onRechercheTravaux();
+  }
 }
