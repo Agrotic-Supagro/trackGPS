@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {DatePipe} from '@angular/common';
 
 
 
@@ -47,7 +48,9 @@ const appRoutes: Routes = [
     VehiculeService,
     AuthService,
     AuthGuard,
-    AuthComponent
+    AuthComponent,
+    VehiculeViewComponent,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

@@ -10,6 +10,7 @@ export class AuthService {
   url = 'https://www.googleapis.com/books/v1/volumes?q=extreme%20programming';
   jwt: string;
 
+  // tslint:disable-next-line:typedef
   signIn(adressemail: string, motdepasse: string) {
         const requestOptions = {
           method: 'POST',

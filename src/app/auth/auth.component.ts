@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Subject} from 'rxjs';
+import {VehiculeViewComponent} from '../vehicule-view/vehicule-view.component';
 
 @Component({
   selector: 'app-auth',
@@ -19,7 +20,7 @@ export class AuthComponent implements OnInit {
   result: string;
   jwt: string;
   posts: any;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private vehiculeview: VehiculeViewComponent) { }
 
   ngOnInit(): void {
     this.authStatus = this.authService.isAuth;
@@ -36,16 +37,18 @@ export class AuthComponent implements OnInit {
       if (result.status === 'ok') {
         console.log('Connexion reussie !');
         this.authService.isAuth = true;
-        this.authStatus = this.authService.isAuth;
+        this.authService.SaveJWT(this.jwt);
+        this.vehiculeview.onChercherVehicule();
         this.router.navigateByUrl('/vehicules');
-
+        this.authStatus = this.authService.isAuth;
       }
     }
     )
     .then( () => {
-
+      console.log(this.result);
       }
     );
+
   }
   // tslint:disable-next-line:typedef
   onSignIn1(){

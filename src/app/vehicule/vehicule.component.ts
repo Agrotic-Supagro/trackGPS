@@ -18,6 +18,6 @@ export class VehiculeComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSwitchOn() {
     console.log('GROS BISOUS');
-    this.vehiculeservice.switchOnOne(this.IndexofVehicule)
+    this.vehiculeservice.switchOnOne(this.IndexofVehicule);
   }
 }
