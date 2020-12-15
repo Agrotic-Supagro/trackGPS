@@ -24,23 +24,36 @@ export class VehiculeViewComponent implements OnInit {
   dateajd;
   format = 'dd/MM/yyyy';
   locale = 'en-FR';
-  private result: any;
+  travaux: any[];
+  geo: any[];
   authjwtSubscription: Subscription;
   jwt: string;
+  cpt = 0;
+  result;
+  csv: string;
+  precsv: string;
 
   constructor(private vehiculeservice: VehiculeService, private authservice: AuthService, public datepipe: DatePipe) {
     this.dateajd = new Date();
     // @ts-ignore
     this.dateajd = formatDate(this.dateajd, this.format, this.locale);
+    this.csv = 'Date,X,Y,Vitesse\n';
+    this.precsv = 'Date,X,Y,Vitesse\n';
 
   }
   ngOnInit(): void {
     this.OnRechercheVehicules();
   }
 
-  onChercherVehicule(): void {
-    console.log('GROS  TEST DE FIFOU');
+  // tslint:disable-next-line:typedef
+  download_csv() {
+    const hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(this.csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'DonnéesGPS.csv';
+    hiddenElement.click();
   }
+
   // tslint:disable-next-line:typedef
   onAllumer(){
     this.vehiculeservice.switchOnAll();
@@ -56,7 +69,7 @@ export class VehiculeViewComponent implements OnInit {
       (result) =>
       {
         // @ts-ignore
-        this.result = result;
+        this.vehicules = result;
         // @ts-ignore
         if (result !== 'msg') {
           console.log('Donnée reçues !');
@@ -64,8 +77,7 @@ export class VehiculeViewComponent implements OnInit {
       }
     )
       .then( () => {
-        this.vehicules = this.result;
-        this.vehiculeservice.vehicules = this.result;
+        this.vehiculeservice.vehicules = this.vehicules;
         }
       );
   }
@@ -76,8 +88,8 @@ export class VehiculeViewComponent implements OnInit {
       (result) =>
       {
         // @ts-ignore
-        this.result = result;
-        console.log(this.result);
+        this.travaux = result;
+        this.geo = this.travaux;
         // @ts-ignore
         if (result[0] !== 'msg') {
           console.log('Donnée reçues !');
@@ -85,9 +97,55 @@ export class VehiculeViewComponent implements OnInit {
       }
     )
       .then( () => {
+        for (const travail of this.travaux){
+          this.onRechercheGeo(this.travaux[this.cpt].id);
+          this.geo[this.cpt] = this.result;
+          this.cpt = this.cpt + 1;
+          if (this.cpt === this.travaux.length){
 
+            alert('test' + this.cpt + ' ' + this.travaux.length);
+
+          }
+
+        }
       }
+      ).then( () => {
+
+    });
+  }
+
+  // tslint:disable-next-line:typedef
+  onRechercheGeo(travail){
+
+    // @ts-ignore
+    this.vehiculeservice.RechercheGeo(travail, this.authservice.jwt).then(
+      (result) =>
+      {
+        // @ts-ignore
+        this.result = result;
+        console.log(result);
+        // @ts-ignore
+        result.forEach((ligne, index) => {
+          this.csv += ligne.properties.t;
+          this.csv += ',';
+          this.csv += ligne.geometry.coordinates[0];
+          this.csv += ',';
+          this.csv += ligne.geometry.coordinates[1];
+          this.csv += ',';
+          this.csv += ligne.properties.speed;
+          this.csv += '\n';
+        });
+        // @ts-ignore
+        if (result[0] !== 'msg') {
+          console.log('Donnée reçues !');
+        }
+      }
+    )
+      .then( () => {
+        console.log(this.csv);
+        }
       );
+
   }
 
   // tslint:disable-next-line:typedef

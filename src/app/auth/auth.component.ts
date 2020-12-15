@@ -38,9 +38,9 @@ export class AuthComponent implements OnInit {
         console.log('Connexion reussie !');
         this.authService.isAuth = true;
         this.authService.SaveJWT(this.jwt);
-        this.vehiculeview.onChercherVehicule();
         this.router.navigateByUrl('/vehicules');
         this.authStatus = this.authService.isAuth;
+        alert('Connexion reussie ! Bienvenue ' + this.adressemail);
       }
     }
     )

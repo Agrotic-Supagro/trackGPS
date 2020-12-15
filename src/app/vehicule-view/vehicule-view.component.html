@@ -21,29 +21,16 @@
       <mat-datepicker-toggle matSuffix [for]="datefin"></mat-datepicker-toggle>
       <mat-datepicker #datefin></mat-datepicker>
       <button type="submit" class="btn-primary" [disabled]="f.invalid" >Rechercher</button>
+
     </div>
   </form>
+  <button (click)="download_csv()">Download CSV</button>
+  <div>{{this.precsv}}</div>
 </div>
 
-<div class="col-sm-6 col-sm-offset-9">
-<h2>Mes vehicules</h2>
-<ul class="list-group" >
-  <app-vehicule *ngFor="let Vehicule of vehicules; let i = index"
-                [IndexofVehicule]="i"
-                [Vehiculename]="Vehicule.name"
-                [VehiculeID]="Vehicule.id"
-  ></app-vehicule>
-
-  <button class = "btn btn-success"
-          [disabled]="!isRempli"
-          (click)="onAllumer()"
-          [ngClass]="{'btn-success': isRempli, 'btn-danger':!isRempli}"
 
 
-  >Valider1</button>
-  <button class = "btn btn-danger"
-          (click)="onEteindre()"
-  >Valider2</button>
-</ul>
-</div>
+
+
+
 

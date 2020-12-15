@@ -1,4 +1,5 @@
 
+
 export class VehiculeService {
   vehicules: any[];
   jwt: string;
@@ -37,6 +38,25 @@ export class VehiculeService {
 
   }
   // tslint:disable-next-line:typedef
+  RechercheGeo(travail, jwt: string){
+
+    // @ts-ignore
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'JWT ' + this.jwt);
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    // @ts-ignore
+    return fetch('https://app.samsys.io/api/v1/works/' + travail + '/geolocations', requestOptions)
+      .then(response => response.json())
+      .catch(error => console.log('error', error));
+
+  }
+  // tslint:disable-next-line:typedef
   RechercheTravaux(datedebut: string, datefin: string, vehiculeName: string, jwt: string){
     console.log(this.vehicules);
     let vehiculeID;
@@ -45,12 +65,11 @@ export class VehiculeService {
         vehiculeID = vehicule.id;
       }
     }
-    const myHeaders1 = new Headers();
-    console.log(jwt);
-    myHeaders1.append('Authorization', 'JWT ' + this.jwt);
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', 'JWT ' + jwt);
     const requestOptions = {
       method: 'GET',
-      headers: myHeaders1,
+      headers: myHeaders,
       redirect: 'follow'
     };
 
@@ -63,7 +82,7 @@ export class VehiculeService {
     // tslint:disable-next-line:no-shadowed-variable
     // @ts-ignore
     return fetch('https://app.samsys.io/api/v1/machines/' + vehiculeID + '/works?start_date=' + datedebut + '&end_date=' + datefin, requestOptions)
-      .then(response => response.text())
+      .then(response => response.json())
       .catch(error => console.log('error', error));
   }
 }
