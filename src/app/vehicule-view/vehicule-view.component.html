@@ -1,12 +1,13 @@
 
 <div class="col-sm-7 col-sm-offset-1">
-  <form (ngSubmit)="onSubmitRecherche(f)" #f="ngForm">
+  <form (ngSubmit)="onSubmitRecherche(f)" #f="ngForm"> <!-- Formulaire pour la recherche des points GPS -->
     <div class="form-group">
       <label for="vehiculename">
         Nom du vehicule
       </label>
       <select id="vehiculename" class="form-control" name="vehiculename" ngModel required>
         <option *ngFor="let Vehicule of vehicules" [value]="Vehicule.name" >{{Vehicule.name}}</option>
+        <!-- Permet d'afficher les noms des vehicules dans la liste -->
       </select>
       <label for="datedebut">
         Date début :
@@ -21,11 +22,9 @@
       <mat-datepicker-toggle matSuffix [for]="datefin"></mat-datepicker-toggle>
       <mat-datepicker #datefin></mat-datepicker>
       <button type="submit" class="btn-primary" [disabled]="f.invalid" >Rechercher</button>
-
     </div>
   </form>
-  <button (click)="download_csv()">Download CSV</button>
-  <div>{{this.precsv}}</div>
+  <button (click)="download_csv()">Download CSV</button> <!-- permet de DL les données une fois reçues -->
 </div>
 
 

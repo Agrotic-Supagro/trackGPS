@@ -2,7 +2,7 @@
 <div class="col-xs-4 col-xs-offset-2" >
   <h2>Authentification</h2>
   <legend></legend>
-  <form (ngSubmit)="onSubmitAuth(f)" #f="ngForm">
+  <form (ngSubmit)="onSubmitAuth(f)" #f="ngForm"> <!-- formulaire de connexion -->
     <div class="form-group">
       <label for="adressemail">Adresse email :</label>
       <input type="text" id="adressemail" class="form-control" name="adressemail" placeholder="....@supagro.fr" ngModel required>
@@ -13,7 +13,7 @@
     </div>
     <div class="col-xs-offset-4">
       <button type="submit" class="btn-primary" [disabled]="f.invalid" *ngIf="!authStatus" >Se connecter</button>
-
+      <!-- Le bouton connexion et deconnexion s'inverse en fonction de l'état de l'utilisateur -->
     </div>
   </form>
     <div class="col-xs-offset-4">
@@ -21,4 +21,4 @@
     </div>
 </div>
 
-<!-- (click) = "onSignOut()" -->
+x

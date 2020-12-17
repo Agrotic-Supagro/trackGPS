@@ -14,59 +14,51 @@ import {VehiculeViewComponent} from '../vehicule-view/vehicule-view.component';
 @Injectable()
 export class AuthComponent implements OnInit {
 
-  @Input() adressemail: string;
-  @Input() motdepasse: string;
+  adressemail: string;
+  motdepasse: string;
   authStatus: boolean;
-  result: string;
   jwt: string;
-  posts: any;
-  constructor(private authService: AuthService, private router: Router, private vehiculeview: VehiculeViewComponent) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authStatus = this.authService.isAuth;
   }
   // tslint:disable-next-line:typedef
+  onSubmitAuth(form: NgForm){
+    this.adressemail = form.value.adressemail;
+    this.motdepasse = form.value.motdepasse;
+    this.onSignIn();// Lance le programme de connexion ci dessous
+  }
+  // tslint:disable-next-line:typedef
   onSignIn(){
-    this.authService.signIn(this.adressemail, this.motdepasse).then(
+    this.authService.signIn(this.adressemail, this.motdepasse).then( // Renvoie un message contenant le jwt
       (result) =>
     {
-      this.result = result;
-      // @ts-ignore
-      this.jwt = this.result.jwt;
-      console.log(this.jwt);
-      if (result.status === 'ok') {
+      this.jwt = result.jwt;
+      if (result.status === 'ok') { // Dans le message si le status est ok c'est que la connexion est reussie
         console.log('Connexion reussie !');
-        this.authService.isAuth = true;
-        this.authService.SaveJWT(this.jwt);
+        this.authService.isAuth = true; // Confirme la connexion dans le programme
+        this.authService.SaveJWT(this.jwt); // Enregistre le JWT dans authService pour simplifier son obtention ailleurs
         this.router.navigateByUrl('/vehicules');
-        this.authStatus = this.authService.isAuth;
+        this.authStatus = this.authService.isAuth; // this.authStatus suit la valeur de this.authService.isAuth pour activer ou desactiver le bouton de connexion
         alert('Connexion reussie ! Bienvenue ' + this.adressemail);
+      }
+      else {
+        alert('Erreur, veuillez réessayer ! ');
       }
     }
     )
     .then( () => {
-      console.log(this.result);
       }
     );
 
   }
   // tslint:disable-next-line:typedef
-  onSignIn1(){
-    this.posts = this.authService.signIn1(this.adressemail, this.motdepasse);
-    console.log(this.posts.json);
-  }
-  // tslint:disable-next-line:typedef
   onSignOut(){
-    this.authService.signOut();
+    this.authService.signOut(); // == this.authService.isAuth = false;
     this.authStatus = this.authService.isAuth;
   }
 
-  // tslint:disable-next-line:typedef
-  onSubmitAuth(form: NgForm){
-    console.log(form.value);
-    this.adressemail = form.value.adressemail;
-    this.motdepasse = form.value.motdepasse;
-    this.onSignIn();
-  }
+
   // tslint:disable-next-line:typedef
 }

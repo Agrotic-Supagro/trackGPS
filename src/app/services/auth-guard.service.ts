@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate { // Permet de proteger le programme et de n'autoriser son acces qu'a quelqu'un de connecté
   constructor( private authService: AuthService,
                private router: Router) {}
 
@@ -15,10 +15,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.authService.isAuth){
+    if (this.authService.isAuth){ // Si l'utilisateur est connecté on peut circuler
       return true;
     } else {
-      this.router.navigate(['/auth']);
+      this.router.navigate(['/auth']); // Sinon on reste sur la page de connexion
     }
 
   }

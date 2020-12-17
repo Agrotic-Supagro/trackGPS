@@ -1,13 +1,6 @@
-import {Input} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
 export class AuthService {
-  httpClient: HttpClient;
-  isAuth = false;
-  // tslint:disable-next-line:typedef
-  reponse: any;
-  // tslint:disable-next-line:variable-name
-  url = 'https://www.googleapis.com/books/v1/volumes?q=extreme%20programming';
+  isAuth = false; // Variable indiquant la connexion ou non au service
   jwt: string;
 
   // tslint:disable-next-line:typedef
@@ -21,20 +14,13 @@ export class AuthService {
           .then(res => res.json())
           .catch(error => console.log('error', error));
   }
-
-  // tslint:disable-next-line:typedef
-  signIn1(adressemail: string, motdepasse: string) {
-    this.url = 'https://app.samsys.io/api/v1/auth?email=' + adressemail + '&password=' + motdepasse;
-    this.reponse = this.httpClient.get(this.url);
-    return this.reponse;
-  }
   // tslint:disable-next-line:typedef
   signOut() {
             this.isAuth = false;
   }
 
   // tslint:disable-next-line:typedef
-  SaveJWT(Jwt: string){
+  SaveJWT(Jwt: string){ // Permet d'enregistrer le jwt dans le service et ainsi d'y avoir acces dans le reste du programme
     this.jwt = Jwt;
   }
 /*.then( res => {
